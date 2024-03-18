@@ -6,7 +6,7 @@ name: Test and Publish WebAPi Container Image
 on:
   push:
     branches: [ "main" ]
-    name: Test and Publish WebAPi Container Image
+    tags: [ "v1*" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:  {} # allow manually trigger workflow
