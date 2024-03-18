@@ -21,8 +21,20 @@ type AmbulanceConditionsAPI interface {
    // internal registration of api routes
    addRoutes(routerGroup *gin.RouterGroup)
 
+    // CreateCondition - Adds new condition to ambulance
+   CreateCondition(ctx *gin.Context)
+
+    // DeleteCondition - Deletes specific condition
+   DeleteCondition(ctx *gin.Context)
+
+    // GetCondition - Provides details about condition
+   GetCondition(ctx *gin.Context)
+
     // GetConditions - Provides the list of conditions associated with ambulance
    GetConditions(ctx *gin.Context)
+
+    // UpdateCondition - Updates specific condition
+   UpdateCondition(ctx *gin.Context)
 
  }
  // partial implementation of AmbulanceConditionsAPI - all functions must be implemented in add on files
@@ -35,7 +47,11 @@ func newAmbulanceConditionsAPI() AmbulanceConditionsAPI {
 }
 
 func (this *implAmbulanceConditionsAPI) addRoutes(routerGroup *gin.RouterGroup) {
+  routerGroup.Handle( http.MethodPost, "/waiting-list/:ambulanceId/condition", this.CreateCondition)
+  routerGroup.Handle( http.MethodDelete, "/waiting-list/:ambulanceId/condition/:conditionCode", this.DeleteCondition)
+  routerGroup.Handle( http.MethodGet, "/waiting-list/:ambulanceId/condition/:conditionCode", this.GetCondition)
   routerGroup.Handle( http.MethodGet, "/waiting-list/:ambulanceId/condition", this.GetConditions)
+  routerGroup.Handle( http.MethodPut, "/waiting-list/:ambulanceId/condition/:conditionCode", this.UpdateCondition)
 }
 
 
